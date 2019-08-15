@@ -30,11 +30,20 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="datePicker" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FHq-5G-EA5">
+                                <rect key="frame" x="20" y="212" width="374" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="FHq-5G-EA5" secondAttribute="trailing" constant="20" id="6aR-bk-BhX"/>
+                            <constraint firstItem="FHq-5G-EA5" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="Laf-uR-Pt6"/>
                             <constraint firstItem="C6I-bF-neg" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="QEH-Sq-4LV"/>
                             <constraint firstItem="C6I-bF-neg" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="50" id="bG6-df-l1Z"/>
+                            <constraint firstItem="FHq-5G-EA5" firstAttribute="top" secondItem="JSI-LH-DME" secondAttribute="bottom" constant="28" id="dUp-rS-iZf"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="C6I-bF-neg" secondAttribute="trailing" constant="20" id="e7d-oz-e9S"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="JSI-LH-DME" secondAttribute="trailing" constant="20" id="g8v-ge-CeN"/>
                             <constraint firstItem="JSI-LH-DME" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="nfe-bI-9n1"/>
@@ -43,6 +52,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="birthdayTxtField" destination="FHq-5G-EA5" id="JUk-6f-fgb"/>
                         <outlet property="daysTxtField" destination="C6I-bF-neg" id="G96-wG-l20"/>
                         <outlet property="monthsTxtField" destination="JSI-LH-DME" id="xjh-tf-0mY"/>
                     </connections>

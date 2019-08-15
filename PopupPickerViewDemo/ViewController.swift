@@ -12,8 +12,10 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var daysTxtField: UITextField!
     @IBOutlet weak var monthsTxtField: UITextField!
-    let pickerView = UIPickerView()
+    @IBOutlet weak var birthdayTxtField: UITextField!
     
+    let pickerView = UIPickerView()
+    let datePickerView = UIDatePicker()
     // content for picker view
     let days = ["Mon","Tue","Wed", "Thur", "Fri", "Sat", "Sun"]
     let months = ["Jan", "Feb","Mar","Apr","May","June","July", "Aug", "Sept", "Oct", "Nov", "Dec"]
@@ -42,6 +44,7 @@ class ViewController: UIViewController {
     private func setInputView(){
         daysTxtField.inputView = pickerView
         monthsTxtField.inputView = pickerView
+        birthdayTxtField.inputView = datePickerView
     }
     
     private func createToolBar(){
@@ -55,19 +58,39 @@ class ViewController: UIViewController {
         
         daysTxtField.inputAccessoryView = toolBar
         monthsTxtField.inputAccessoryView = toolBar
+        birthdayTxtField.inputAccessoryView = toolBar
         
     }
     
     @objc private func doneBttnPressed(){
-        
-        currentTxtField.resignFirstResponder()
+        if daysTxtField.isSelected {
+            currentTxtField.resignFirstResponder()
+        } else if monthsTxtField.isSelected {
+            currentTxtField.resignFirstResponder()
+        } else if birthdayTxtField.isSelected {
+             donedatePicker()
+        }
     }
+
     @objc private func cancelBttnPressed(){
         currentTxtField.text = ""
         currentTxtField.resignFirstResponder()
     }
 
+    @objc func donedatePicker(){
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd/MM/yyyy"
+        birthdayTxtField.text = formatter.string(from: datePickerView.date)
+        self.view.endEditing(true)
+    }
+    
+    @objc func cancelDatePicker(){
+        self.view.endEditing(true)
+    }
 }
+
+
 
 extension ViewController: UITextFieldDelegate {
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
@@ -77,6 +100,9 @@ extension ViewController: UITextFieldDelegate {
             currentArr = days
         case monthsTxtField:
             currentArr = months
+        case birthdayTxtField:
+            print("hello")
+            //showDatePicker()
         default:
             print("Detfault")
         }
