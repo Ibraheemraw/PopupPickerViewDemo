@@ -15,7 +15,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var birthdayTxtField: UITextField!
     
     let pickerView = UIPickerView()
-    let datePickerView = UIDatePicker()
+    var dateOfBirthPicker = UIDatePicker()
     // content for picker view
     let days = ["Mon","Tue","Wed", "Thur", "Fri", "Sat", "Sun"]
     let months = ["Jan", "Feb","Mar","Apr","May","June","July", "Aug", "Sept", "Oct", "Nov", "Dec"]
@@ -31,9 +31,33 @@ class ViewController: UIViewController {
     }
     
     private func callMethods(){
+        setupDatePicker()
         setDelegate()
         setInputView()
         createToolBar()
+    }
+
+    private func setupDatePicker(){
+        dateOfBirthPicker.datePickerMode = .date
+        addDateOfBirthPickerTarget()
+        setupTapGesture()
+        birthdayTxtField.inputView = dateOfBirthPicker
+    }
+    private func addDateOfBirthPickerTarget(){
+        dateOfBirthPicker.addTarget(self, action: #selector(datePickerDidChange), for: .valueChanged)
+    }
+    @objc private func datePickerDidChange(datePicker picker: UIDatePicker){
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yyyy"
+        birthdayTxtField.text = dateFormatter.string(from: picker.date)
+        view.endEditing(true)
+    }
+    private func setupTapGesture(){
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(viewDidTapped))
+        view.addGestureRecognizer(tapGesture)
+    }
+    @objc private func viewDidTapped(){
+        view.endEditing(true)
     }
     private func setDelegate(){
         daysTxtField.delegate = self
@@ -44,7 +68,6 @@ class ViewController: UIViewController {
     private func setInputView(){
         daysTxtField.inputView = pickerView
         monthsTxtField.inputView = pickerView
-        birthdayTxtField.inputView = datePickerView
     }
     
     private func createToolBar(){
@@ -63,31 +86,21 @@ class ViewController: UIViewController {
     }
     
     @objc private func doneBttnPressed(){
-        if daysTxtField.isSelected {
-            currentTxtField.resignFirstResponder()
-        } else if monthsTxtField.isSelected {
-            currentTxtField.resignFirstResponder()
-        } else if birthdayTxtField.isSelected {
-             donedatePicker()
-        }
+         currentTxtField.resignFirstResponder()
+        birthdayTxtField.resignFirstResponder()
     }
 
     @objc private func cancelBttnPressed(){
-        currentTxtField.text = ""
-        currentTxtField.resignFirstResponder()
+        if daysTxtField.isSelected || monthsTxtField.isSelected {
+            currentTxtField.text = ""
+            currentTxtField.resignFirstResponder()
+        } else if birthdayTxtField.isSelected {
+            birthdayTxtField.text = ""
+            birthdayTxtField.resignFirstResponder()
+        }
+        
     }
 
-    @objc func donedatePicker(){
-        
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd/MM/yyyy"
-        birthdayTxtField.text = formatter.string(from: datePickerView.date)
-        self.view.endEditing(true)
-    }
-    
-    @objc func cancelDatePicker(){
-        self.view.endEditing(true)
-    }
 }
 
 
@@ -100,9 +113,6 @@ extension ViewController: UITextFieldDelegate {
             currentArr = days
         case monthsTxtField:
             currentArr = months
-        case birthdayTxtField:
-            print("hello")
-            //showDatePicker()
         default:
             print("Detfault")
         }
