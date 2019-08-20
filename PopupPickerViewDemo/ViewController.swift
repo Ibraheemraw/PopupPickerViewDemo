@@ -81,7 +81,6 @@ class ViewController: UIViewController {
         
         daysTxtField.inputAccessoryView = toolBar
         monthsTxtField.inputAccessoryView = toolBar
-        birthdayTxtField.inputAccessoryView = toolBar
         
     }
     
@@ -91,14 +90,7 @@ class ViewController: UIViewController {
     }
 
     @objc private func cancelBttnPressed(){
-        if daysTxtField.isSelected || monthsTxtField.isSelected {
-            currentTxtField.text = ""
-            currentTxtField.resignFirstResponder()
-        } else if birthdayTxtField.isSelected {
-            birthdayTxtField.text = ""
-            birthdayTxtField.resignFirstResponder()
-        }
-        
+       currentTxtField.text = ""
     }
 
 }
